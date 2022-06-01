@@ -29,7 +29,6 @@ class CostCalculator:
     def get_offer_discount(self):
         """
         Get the discount for the offer code
-        TODO add hashmap /design pattern
         """
         offer = self.offers_map.get(self.offer_code)
         if offer:
