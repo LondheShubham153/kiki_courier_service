@@ -6,6 +6,14 @@ class CostCalculator:
         self.weight = weight
         self.distance = distance
         self.offer_code = offer_code
+        self.create_offers_map()
+
+    def create_offers_map(self):
+        self.offers_map = {
+            offer_1.code: offer_1,
+            offer_2.code: offer_2,
+            offer_3.code: offer_3
+        }
 
 
     def check_discount_conditions(self,offer):
@@ -23,23 +31,12 @@ class CostCalculator:
         Get the discount for the offer code
         TODO add hashmap /design pattern
         """
-        if offer_1.code == self.offer_code:
-            if self.check_discount_conditions(offer_1) and not offer_1.is_used:
-                offer_1.is_used = True
-                return offer_1.discount
-            return 0
-        elif offer_2.code == self.offer_code:
-            if self.check_discount_conditions(offer_2) and not offer_2.is_used:
-                offer_2.is_used = True
-                return offer_2.discount
-            return 0
-        elif offer_3.code == self.offer_code:
-            if self.check_discount_conditions(offer_3) and not offer_3.is_used:
-                offer_3.is_used = True
-                return offer_3.discount
-            return 0
-        else:
-            return 0
+        offer = self.offers_map.get(self.offer_code)
+        if offer:
+            if self.check_discount_conditions(offer) and not offer.is_used:
+                offer.is_used = True
+                return offer.discount
+        return 0
 
     def calculate_delivery_cost(self):
         """
