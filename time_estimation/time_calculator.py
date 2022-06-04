@@ -1,9 +1,9 @@
-from packages import Package
-from vehicles import Vehicle
-import pprint
+from time_estimation.packages import Package
+from time_estimation.vehicles import Vehicle
+from offer_criteria.cost_calculator import CostCalculator
 
 class TimeCalculator:
-    def __init__(self, base_del_cost,no_of_packges, no_of_vehicles,max_speed,max_carriable_weight):
+    def __init__(self, base_del_cost,no_of_packges, no_of_vehicles=2,max_speed=70,max_carriable_weight=200):
         self.base_del_cost = base_del_cost
         self.no_of_packges = no_of_packges
         self.no_of_vehicles = no_of_vehicles
@@ -13,12 +13,12 @@ class TimeCalculator:
         self.vehicles = []
 
     def create_packages(self,pkg_ids,distances_in_km,pkg_weights_in_kg,offer_codes):
-        for i in range(self.no_of_packges):
-            self.packages.append(Package(pkg_ids[i],distances_in_km[i],pkg_weights_in_kg[i],offer_codes[i]))
-    
+        Package._create_packages(self,pkg_ids,distances_in_km,pkg_weights_in_kg,offer_codes)
+
+
     def create_vehicles(self,vehicle_ids,vehicle_speeds,vehicle_weights):
-        for i in range(self.no_of_vehicles):
-            self.vehicles.append(Vehicle(vehicle_ids[i],vehicle_speeds[i],vehicle_weights[i]))
+        Vehicle._create_vehicles(self,vehicle_ids,vehicle_speeds,vehicle_weights)
+
 
     def sort_packages(self):
         for i in range(self.no_of_packges):
@@ -28,11 +28,13 @@ class TimeCalculator:
                     self.packages[i] = self.packages[j]
                     self.packages[j] = temp
     
+
     def get_total_weight(self,package):
         total_weight = 0
         total_weight += package.pkg_weight
         return total_weight
     
+
     def get_max_weighted_package(self,packages):
         max_weight = 0
         if not packages:
@@ -83,27 +85,16 @@ class TimeCalculator:
             current_vehicle = self.allocate_vehicle()
         return delivered_packages
 
+    def get_discounted_price(self,packages):
+        for package in packages:
+            cost_calculator = CostCalculator(self.base_del_cost,
+                                            package.pkg_weight,
+                                            package.pkg_dist,
+                                            package.pkg_offer
+                                        )
+            package.pkg_discount = cost_calculator.get_applied_discount()
+            package.pkg_total_cost = cost_calculator.get_total_cost() - cost_calculator.get_applied_discount()
+        return self.show_final_packages() 
 
-
-
-if __name__ == "__main__":
-    base_delivery_cost = 100
-    no_of_packges = 5
-    pkg_ids = ["PKG1","PKG2","PKG3","PKG4","PKG5"] 
-    pkg_weights_in_kg = [50,75,175,110,155]
-    distances_in_km = [30,125,100,60,95]
-    offer_codes = ["OFFR01","OFFR02","OFFR03","OFFR04","OFFR05"]
-    no_of_vehicles = 2
-    max_speed = 70
-    max_carriable_weight = 200
-
-    veh_ids = ["VEH1","VEH2"]
-    veh_speeds = [70,70]
-    veh_max_weights = [200,200]
-
-    time_calculator = TimeCalculator(base_delivery_cost,no_of_packges,no_of_vehicles,max_speed,max_carriable_weight)
-    time_calculator.create_packages(pkg_ids,distances_in_km,pkg_weights_in_kg,offer_codes)
-    
-    time_calculator.create_vehicles(veh_ids,veh_speeds,veh_max_weights)
-    pprint.pprint(time_calculator.calculate_delivery_time(time_calculator.packages))
-    # time_calculator.calculate_delivery_time(time_calculator.packages)
+    def show_final_packages(self):
+        return Package._show_packages(self,self.packages)

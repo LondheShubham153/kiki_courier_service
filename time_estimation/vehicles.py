@@ -3,11 +3,15 @@ from dataclasses import dataclass
 @dataclass
 class Vehicle:
     vehicle_id: int
-    max_speed: int
-    max_weight: int
+    max_speed: int = 70
+    max_weight: int = 200
     hours : float = 0.0
     is_available: bool = True
 
+    def _create_vehicles(self,vehicle_ids,vehicle_speeds,vehicle_weights):
+        for i in range(self.no_of_vehicles):
+            self.vehicles.append(Vehicle(vehicle_ids[i],vehicle_speeds[i],vehicle_weights[i]))
+    
     def _get_current_vehicle(vehicle_on_trip):
         if not vehicle_on_trip:
             return None
