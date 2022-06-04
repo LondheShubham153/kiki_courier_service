@@ -26,14 +26,13 @@ class CostCalculator:
         return False
 
 
-    def get_offer_discount(self):
+    def get_offer_discount(self,offer_code=None):
         """
         Get the discount for the offer code
         """
         offer = self.offers_map.get(self.offer_code)
         if offer:
             if self.check_discount_conditions(offer) and not offer.is_used:
-                offer.is_used = True
                 return offer.discount
         return 0
 
@@ -48,25 +47,10 @@ class CostCalculator:
         """
         Apply the offer discount
         """
-        return self.calculate_delivery_cost() * self.get_offer_discount()
+        return round(self.calculate_delivery_cost() * self.get_offer_discount(),2)
     
     def get_total_cost(self):
         """
         Get the total cost
         """
         return self.calculate_delivery_cost() - self.get_applied_discount()
-
-if __name__ == "__main__":
-    base_price = float(input("Enter the base price: "))
-    packages = int(input("Enter the number of packages: "))
-
-    for package in range(packages):
-        pkg_weight = int(input("Enter the package weight: "))
-        pkg_distance = int(input("Enter the distance to destination: "))
-        pkg_name = input("Enter the package name: ")
-        pkg_offer = input("Enter the offer code: ")
-
-        cost_calculator = CostCalculator(base_price, pkg_weight, pkg_distance, pkg_offer)
-        print(f"{pkg_name} {cost_calculator.get_applied_discount()}, {cost_calculator.get_total_cost()}")
-
-    
