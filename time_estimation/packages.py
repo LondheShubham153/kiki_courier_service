@@ -1,3 +1,13 @@
+"""
+Created on 29/05/2022
+
+@author: Shubham Londhe
+
+Data Class Implementation for Packages that can be extended 
+to any new Packages to be added.
+
+"""
+
 from dataclasses import dataclass
 
 @dataclass
@@ -30,4 +40,7 @@ class Package:
             "pkg_delivery_time":pkg_pkg_delivery_time
         }
 
+# Spme Sample Packages
 pkg_1 = Package("PKG1", 30,50,"OFFR001")
+pkg_2 = Package("PKG2", 130,250,"OFFR002")
+pkg_3 = Package("PKG3", 90,150,"OFFR003")

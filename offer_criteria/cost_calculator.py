@@ -1,3 +1,13 @@
+"""
+Created on 29/05/2022
+
+@author: Shubham Londhe
+
+Implementation of Problem 1 of the Kiki Courier Service that does
+the cost calculation based on the offers Provided.
+
+"""
+
 from .offers import offer_1,offer_2,offer_3
 
 class CostCalculator:
