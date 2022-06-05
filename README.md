@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://ibb.co/sC0TMQV">
+  <a href="https://github.com/LondheShubham153/kiki_courier_service#the-cli-app-in-action">
     <img src="assets/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -12,7 +12,7 @@
 
 
   <p align="center">
-    <a href="https://github.com/LondheShubham153/kiki_courier_service">View Demo</a>
+    <a href="https://github.com/LondheShubham153/kiki_courier_service#the-cli-app-in-action">View Demo</a>
     ·
     <a href="https://github.com/LondheShubham153/">Report Bug</a>
     ·
