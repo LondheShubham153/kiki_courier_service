@@ -27,9 +27,6 @@ class CostCalculator:
 
 
     def check_discount_conditions(self,offer):
-        """
-        Check if the offer conditions are met
-        """
         if offer.max_weight >= self.weight >= offer.min_weight:
             if offer.max_dist >= self.distance >= offer.min_dist:
                 return True
@@ -37,9 +34,6 @@ class CostCalculator:
 
 
     def get_offer_discount(self,offer_code=None):
-        """
-        Get the discount for the offer code
-        """
         offer = self.offers_map.get(self.offer_code)
         if offer:
             if self.check_discount_conditions(offer) and not offer.is_used:
@@ -47,20 +41,10 @@ class CostCalculator:
         return 0
 
     def calculate_delivery_cost(self):
-        """
-        Base Delivery Cost + (Package Total Weight * 10) +
-        (Distance to Destination * 5)
-        """
         return self.base_del_cost + (self.weight * 10) + (self.distance * 5)
         
     def get_applied_discount(self):
-        """
-        Apply the offer discount
-        """
         return round(self.calculate_delivery_cost() * self.get_offer_discount(),2)
     
     def get_total_cost(self):
-        """
-        Get the total cost
-        """
         return self.calculate_delivery_cost() - self.get_applied_discount()
