@@ -31,3 +31,4 @@ def test_calculate_delivery_cost():
 def test_get_applied_discount():
    cost_calculator = CostCalculator(100, 10, 100, "OFR003")
    assert cost_calculator.get_applied_discount() == 35.0
+
