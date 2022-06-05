@@ -31,10 +31,6 @@ class TimeCalculator:
 
 
     def sort_packages(self):
-        """
-        Can use simple Python Sort function 
-        but can be a good use of Bubble sort
-        """
         for i in range(self.no_of_packges):
             for j in range(self.no_of_packges):
                 if self.packages[i].pkg_weight > self.packages[j].pkg_weight:
@@ -50,9 +46,6 @@ class TimeCalculator:
     
 
     def get_max_weighted_package(self,packages):
-        """
-        As per the criteria, heaviest package to be sent first
-        """
         max_weight = 0
         if not packages:
             return max_weight
@@ -67,12 +60,6 @@ class TimeCalculator:
         return Vehicle._get_current_vehicle(self.vehicles)
 
     def dispatch_packages(self,packages_group):
-        """
-        Vehicles can be dispatched based on the following criteria:
-        - if the max package is picked up by the vehicle
-        - If the vehicle is available
-        - If the vehicle is not overloaded
-        """
         packages_to_dispatch = {}
         package_in_transit = []
         package_index = 0
@@ -92,12 +79,6 @@ class TimeCalculator:
         return packages_to_dispatch[self.get_max_weighted_package(packages_to_dispatch.values())]
 
     def calculate_delivery_time(self,packages_group):
-        """
-        Calculating the delievery time based on the following criteria:
-        - If the vehicle is available for allocation
-        - If the package size is max
-        - If all the packages are delivered
-        """
         delivered_packages = []
         current_vehicle = self.vehicles[0]
 
@@ -115,12 +96,6 @@ class TimeCalculator:
         return delivered_packages
 
     def get_discounted_price(self,packages):
-        """
-        Calculating the discounted price based on the following criteria:
-        - If the offer is applicable
-        - If the package is delivered
-        - Extending the offer criteria logic to the package
-        """
         for package in packages:
             cost_calculator = CostCalculator(self.base_del_cost,
                                             package.pkg_weight,
