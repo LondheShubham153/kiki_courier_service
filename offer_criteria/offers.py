@@ -24,7 +24,13 @@ class Offer:
         for i in range(self.no_of_offers):
             self.offers.append(Offer(codes[i],max_distances[i],min_distances[i],max_weights[i],min_weights[i],discounts[i]))
 
-# Some Sample Offers
-offer_1 = Offer("OFR001", 200,0,200,70,0.01,False)
-offer_2 = Offer("OFR002", 150,50,250,100,0.07,False)
-offer_3 = Offer("OFR003", 250,50,150,10,0.05,False)
+    def _create_offers_map(self):
+        offers_map = {}
+        for offer in self.offers:
+            offers_map[offer.code] = offer
+        return offers_map
+    
+    def _create_offer(self,code,max_dist,min_dist,max_weight,min_weight,discount):
+        offers = []
+        return offers.append(Offer(code,max_dist,min_dist,max_weight,min_weight,discount))
+
