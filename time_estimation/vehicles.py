@@ -17,10 +17,12 @@ class Vehicle:
     hours : float = 0.0
     is_available: bool = True
 
-    def _create_vehicles(self,vehicle_ids,vehicle_speeds,vehicle_weights):
-        for i in range(self.no_of_vehicles):
-            self.vehicles.append(Vehicle(vehicle_ids[i],vehicle_speeds[i],vehicle_weights[i]))
-    
+    def _create_vehicles(self,no_of_vehicles,vehicle_ids,vehicle_speeds,vehicle_weights):
+        vehicles = []
+        for i in range(no_of_vehicles):
+            vehicles.append(Vehicle(vehicle_ids[i],vehicle_speeds[i],vehicle_weights[i]))
+        return vehicles
+
     def _get_current_vehicle(vehicle_on_trip):
         """
         Returns the current vehicle on trip
@@ -36,7 +38,3 @@ class Vehicle:
             if vehicle_available.hours > vehicle.hours:
                 vehicle_available = vehicle
         return vehicle_available
-
-# Some Sample Vehicles
-veh_1 = Vehicle("VH1", 70,200,True)
-veh_2 = Vehicle("VH2", 70,200,True)

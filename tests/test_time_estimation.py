@@ -1,4 +1,8 @@
+from time_estimation.time_utils import TimeUtils
 from time_estimation.time_calculator import TimeCalculator
+from time_estimation.packages import Package
+from time_estimation.vehicles import Vehicle
+
 import pytest
 
 @pytest.fixture()
@@ -7,11 +11,11 @@ def time_calculator():
 
 @pytest.fixture()
 def vehicles(time_calculator):
-   return time_calculator.create_packages(["PKG1","PKG2"],[30,125],[50,75],["OFFR001","OFFR0008"])
+   return TimeUtils.create_packages(Package,2,["PKG1","PKG2"],[30,125],[50,75],["OFFR001","OFFR0008"])
 
 @pytest.fixture()
 def packages(time_calculator):
-   return time_calculator.create_vehicles(["VEH1","VEH2"],[70,70],[200,200])
+   return TimeUtils.create_vehicles(Vehicle,2,["VEH1","VEH2"],[70,70],[200,200])
 
 
 def test_delivery_times(time_calculator,packages,vehicles):
@@ -33,3 +37,4 @@ def test_if_package_delivered(time_calculator,packages,vehicles):
 
 def test_get_total_weight(time_calculator,packages,vehicles):
    assert time_calculator.get_total_weight(time_calculator.packages[0]) == 50
+   assert time_calculator.get_total_weight(time_calculator.packages[1]) == 75

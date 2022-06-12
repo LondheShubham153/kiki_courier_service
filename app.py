@@ -56,26 +56,49 @@ while True:
 
     elif choice1 == 2:  
         """
-        This choice demonstrates the pre loaded inputs for Time calculation
+        This choice demonstrates the working for Time calculation by user input 
+        - Base Delivery Cost
+        - Number of Packages
+        - Max Speed
+        - Package IDs
+        - Package Distances
+        - Package Weights
+        - Offer Codes
         """
         
-        base_delivery_cost = 100
-        no_of_packges = 5
-        pkg_ids = ["PKG1","PKG2","PKG3","PKG4","PKG5"] 
-        pkg_weights_in_kg = [50,75,175,110,155]
-        distances_in_km = [30,125,100,60,95]
-        offer_codes = ["OFFR01","OFFR02","OFFR03","OFR002","OFFR05"]
-        no_of_vehicles = 2
-        max_speed = 70
-        max_carriable_weight = 200
+        base_delivery_cost = float(input("Enter the base delivery cost: "))
+        no_of_packges = int(input("Enter the number of packages: "))
+        no_of_vehicles = int(input("Enter the number of vehicles: "))
+        max_speed = int(input("Enter the max speed: "))
+        max_carriable_weight = int(input("Enter the max carriable weight: "))
 
-        veh_ids = ["VEH1","VEH2"]
-        veh_speeds = [70,70]
-        veh_max_weights = [200,200]
+        pkg_ids = [] 
+        pkg_weights_in_kg = []
+        distances_in_km = []
+        offer_codes = []
+        veh_ids = []
+        veh_speeds = []
+        veh_max_weights = []
 
+        for package in range(no_of_packges):
+            pkg_id = input("Enter the package id: ")
+            pkg_weight = int(input("Enter the package weight: "))
+            pkg_distance = int(input("Enter the distance to destination: "))
+            pkg_offer = input("Enter the offer code: ")
+            pkg_ids.append(pkg_id)
+            pkg_weights_in_kg.append(pkg_weight)
+            distances_in_km.append(pkg_distance)
+            offer_codes.append(pkg_offer)
+        
+        for vehicle in range(no_of_vehicles):
+            veh_id = input("Enter the vehicle id: ")
+            veh_ids.append(veh_id)
+            veh_speeds.append(max_speed)
+            veh_max_weights.append(max_carriable_weight)
+        
         time_calculator = TimeCalculator(base_delivery_cost,no_of_packges,no_of_vehicles,max_speed,max_carriable_weight)
-        time_calculator.create_packages(pkg_ids,distances_in_km,pkg_weights_in_kg,offer_codes)
-        time_calculator.create_vehicles(veh_ids,veh_speeds,veh_max_weights)
+        time_calculator.create_packages(no_of_packges,pkg_ids,distances_in_km,pkg_weights_in_kg,offer_codes)
+        time_calculator.create_vehicles(no_of_vehicles,veh_ids,veh_speeds,veh_max_weights)
         time_calculator.calculate_delivery_time(time_calculator.packages)
 
         final_packages = time_calculator.get_discounted_price(time_calculator.packages)

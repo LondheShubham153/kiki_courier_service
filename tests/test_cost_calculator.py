@@ -3,16 +3,19 @@ from offer_criteria.offers import Offer
 
 
 def test_with_no_discount():
+   offer = Offer._create_offer(Offer,"OFR001", 200,0,200,70,0.01)
    cost_calculator = CostCalculator(100, 5, 5, "OFR001")
    assert cost_calculator.get_total_cost() == 175
 
 
 def test_with_discount():
+   offer = Offer._create_offer(Offer,"OFR003", 250,50,150,10,0.05)
    cost_calculator = CostCalculator(100, 10, 100, "OFR003")
-   assert cost_calculator.get_total_cost() == 665
+   assert cost_calculator.get_total_cost() == 700
 
 
 def test_get_offer_discount():
+   offer = Offer._create_offer(Offer,"OFR003", 250,50,150,10,0.05)
    cost_calculator = CostCalculator(100, 10, 100, "OFR003")
    assert cost_calculator.get_offer_discount() == 0.05
 
